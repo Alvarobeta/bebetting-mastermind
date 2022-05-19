@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  local-server:
+    container_name: local-server
+    tty: true
+    build:
+      context: .
+      target: local-server
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./app:/app/app

@@ -1,0 +1,20 @@
+# generic project dependencies
+anyio~=3.4.0
+fastapi~=0.70.1
+idna~=3.3
+pydantic~=1.8.2
+sniffio~=1.2.0
+starlette~=0.16.0
+typing-extensions~=4.0.1
+
+# local http server (uvicorn and dependencies)
+asgiref~=3.4.1
+click~=8.0.3
+h11~=0.12.0
+httptools~=0.3.0
+python-dotenv~=0.19.2
+PyYAML~=6.0
+uvicorn~=0.16.0
+uvloop~=0.16.0
+watchgod~=0.7
+websockets~=10.1
