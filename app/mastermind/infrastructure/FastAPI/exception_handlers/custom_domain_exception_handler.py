@@ -2,7 +2,7 @@ from fastapi.encoders import jsonable_encoder
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
-from app.app_name.domain.domain_exception import DomainException
+from app.mastermind.domain.domain_exception import DomainException
 
 
 class CustomDomainExceptionHandler:

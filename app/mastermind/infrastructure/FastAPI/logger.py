@@ -3,7 +3,7 @@ import logging
 import logging.config
 import os
 
-from app.app_name.infrastructure import config
+from app.mastermind.infrastructure import config
 
 
 def setup_logging(config_file_path: str):

@@ -1,11 +1,9 @@
-import json
-import os
 from unittest import TestCase
 
 from fastapi.testclient import TestClient
 
-from app.app_name.infrastructure.config import API_V1_STR
-from app.app_name.infrastructure.FastAPI.main import app
+from app.mastermind.infrastructure.config import API_V1_STR
+from app.mastermind.infrastructure.FastAPI.main import app
 
 
 class FunctionalTestRadar(TestCase):
@@ -22,6 +20,4 @@ class FunctionalTestRadar(TestCase):
 
         json_response = endpoint_response.json()
 
-        self.assertEqual(
-                "Hello World", json_response["message"]
-            )
+        self.assertEqual("Hello World", json_response["message"])

@@ -1,6 +1,6 @@
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from app.app_name.infrastructure import config
+from app.mastermind.infrastructure import config
 
 
 class CustomServerHttpResponseHeaderMiddleware(BaseHTTPMiddleware):

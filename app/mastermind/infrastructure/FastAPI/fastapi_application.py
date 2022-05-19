@@ -2,14 +2,14 @@ from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.gzip import GZipMiddleware
 
-from app.app_name.domain.domain_exception import DomainException
-from app.app_name.infrastructure import config
-from app.app_name.infrastructure.FastAPI.api_v1.api import api_router
-from app.app_name.infrastructure.FastAPI.exception_handlers.custom_domain_exception_handler import \
+from app.mastermind.domain.domain_exception import DomainException
+from app.mastermind.infrastructure import config
+from app.mastermind.infrastructure.FastAPI.api_v1.api import api_router
+from app.mastermind.infrastructure.FastAPI.exception_handlers.custom_domain_exception_handler import \
     CustomDomainExceptionHandler
-from app.app_name.infrastructure.FastAPI.exception_handlers.request_validation_error_handler import \
+from app.mastermind.infrastructure.FastAPI.exception_handlers.request_validation_error_handler import \
     RequestValidationErrorHandler
-from app.app_name.infrastructure.FastAPI.middlewares.custom_server_http_response_header_middleware import \
+from app.mastermind.infrastructure.FastAPI.middlewares.custom_server_http_response_header_middleware import \
     CustomServerHttpResponseHeaderMiddleware
 
 
