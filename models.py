@@ -16,5 +16,12 @@ class User(Base):
 
 class Game(Base):
     __tablename__ = "games"
+
     id = Column(Integer, primary_key=True, index=True)
     code = Column(ARRAY(String))
+
+    def dict(self):
+        return {
+            "id": self.id,
+            "code": self.code,
+        }

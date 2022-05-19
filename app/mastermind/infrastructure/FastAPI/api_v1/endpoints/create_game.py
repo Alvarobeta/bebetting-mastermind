@@ -6,11 +6,20 @@ from models import Game as ModelGame
 from schema import Game as SchemaGame
 from fastapi_sqlalchemy import db
 
+import logging
+
 router = APIRouter()
+
+logger = logging.getLogger(__name__)
 
 
 @router.post("/games", response_model=SchemaGame)
 async def create_game(game: SchemaGame):
+    
+    # logger.debug(
+    #     f" ------------------------------------- create_game. game={game}"
+    # )
+
     db_game = ModelGame(
         code=game.code
     )
