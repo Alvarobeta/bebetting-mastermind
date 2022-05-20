@@ -1,5 +1,8 @@
 import random
+
 from typing import List
+
+from app.mastermind.domain.entities.guess_colour import GuessColour
 
 class GameRequestMother:
     def __init__(self, code: List[str] = None):
@@ -9,10 +12,9 @@ class GameRequestMother:
     def _generate_code() -> List[str]:
         code = []
         default_code_length = 4
-        possible_colours = ["RED", "YELLOW", "ORANGE", "BLUE", "PINK", "GREEN"]
 
         for i in range(default_code_length):
-            code.append(random.choice(possible_colours))
+            code.append(random.choice(list(GuessColour)))
         
         return code
 

@@ -31,4 +31,7 @@ class FunctionalTestFeedback(TestCase):
 
 
         assert endpoint_response.status_code == 200
-        assert endpoint_response.json() == ["BLACK", "WHITE", "WHITE", ""] 
+        assert endpoint_response.json() == ["BLACK", "", "WHITE", ""] 
+
+    #check that the input is 4 (or required)
+    #check that the input is correct (strings)
