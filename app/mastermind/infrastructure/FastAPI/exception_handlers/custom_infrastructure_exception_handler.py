@@ -2,11 +2,12 @@ from fastapi.encoders import jsonable_encoder
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
-from app.mastermind.application.application_exception import ApplicationException
+from app.mastermind.infrastructure.infrastructure_exception import \
+    InfrastructureException
 
 
-class CustomApplicationExceptionHandler:
-    def __call__(self, request: Request, exc: ApplicationException):
+class CustomInfrastructureExceptionHandler:
+    def __call__(self, request: Request, exc: InfrastructureException):
         return JSONResponse(
             status_code=exc.status,
             content=jsonable_encoder(

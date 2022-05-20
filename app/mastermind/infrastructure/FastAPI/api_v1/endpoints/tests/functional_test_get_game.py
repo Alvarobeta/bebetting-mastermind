@@ -47,5 +47,3 @@
 #         # self.assertEqual(200, endpoint_response.status_code)
 
 #         # self.assertEqual(endpoint_response, mock_game.return_value)
-
-        

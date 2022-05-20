@@ -5,6 +5,5 @@ from app.mastermind.domain.entities.feedback_colour import FeedbackColour
 
 
 @dataclass
-class ResponseFeedback:
+class Feedback:
     feedback: List[FeedbackColour]
-    msg: str = ""

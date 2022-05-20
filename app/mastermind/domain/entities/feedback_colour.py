@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class FeedbackColour(str, Enum):
     BLACK = "BLACK"
     WHITE = "WHITE"

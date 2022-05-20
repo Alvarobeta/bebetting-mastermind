@@ -1,4 +1,4 @@
-class ApplicationException(Exception):
+class InfrastructureException(Exception):
     def __init__(self, type: str, message: str, status: int = 400):
         Exception.__init__(self, message)
         self.type = type

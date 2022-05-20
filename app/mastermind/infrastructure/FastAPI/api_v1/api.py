@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from app.mastermind.infrastructure.FastAPI.api_v1.endpoints import \
-    feedback, genericendpoint, create_game, get_game
+from app.mastermind.infrastructure.FastAPI.api_v1.endpoints import (
+    create_game, feedback, genericendpoint, get_game)
 
 api_router = APIRouter()
 api_router.include_router(genericendpoint.router, tags=["genericendpoint"])

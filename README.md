@@ -32,3 +32,8 @@ make lint
 ```bash
 make format
 ```
+
+
+## Improvements
+Randomize feedback, I didn't do it because I don't know how to test random answers.
+Use mocks on testing to avoid user user with id=1. There are ways to do it but I'm not sure how to implement it, sorry.
