@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from app.mastermind.domain.app_service_name.compare_patterns import ComparePatterns
-from app.mastermind.domain.app_service_name.tests.pattern_mother import PatternMother
+from app.mastermind.domain.feedback_services.compare_patterns import ComparePatterns
+from app.mastermind.domain.feedback_services.tests.pattern_mother import PatternMother
 from app.mastermind.domain.entities.guess_colour import GuessColour
 from app.mastermind.domain.entities.feedback_colour import FeedbackColour
 

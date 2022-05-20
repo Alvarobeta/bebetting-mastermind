@@ -6,6 +6,9 @@ from app.mastermind.domain.entities.guess_colour import GuessColour
 
 
 @dataclass
-class GuessingPattern:
+class Game:
+    id: int
     code: List[GuessColour]
+    #attempts
+    #guessing_history
     
