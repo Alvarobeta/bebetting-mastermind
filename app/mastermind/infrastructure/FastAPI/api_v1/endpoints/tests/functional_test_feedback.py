@@ -1,5 +1,6 @@
 import logging
 import os
+from typing import List
 from unittest import TestCase
 
 from fastapi.testclient import TestClient
@@ -25,6 +26,8 @@ class FunctionalTestFeedback(TestCase):
                 GuessColour.YELLOW,
             ]
         )
+        self._won_string_message: str = "YOU WON!!!!!!!!!"
+        self._won_feedback_answer: List[str] = ["BLACK", "BLACK", "BLACK", "BLACK"]
 
     def make_request(self, json_data: dict, game_id: int = 1):
         return self._client.post(f"{API_V1_STR}/{game_id}/feedbacks", json=json_data)
@@ -33,11 +36,6 @@ class FunctionalTestFeedback(TestCase):
         request_data = GameRequestMother(
             code=[GuessColour.RED, GuessColour.BLUE, GuessColour.GREEN, GuessColour.RED]
         )
-
-        expected_feedback_response = {
-            "feedback": ["BLACK", "", "WHITE", ""],
-            "message": "Keep trying!",
-        }
 
         # logger.debug(f" -------------- request_data={request_data.build()}")
 
@@ -50,7 +48,6 @@ class FunctionalTestFeedback(TestCase):
 
         self.assertEqual("Keep trying!", json_response["message"])
         self.assertEqual(["BLACK", "", "WHITE", ""], json_response["feedback"])
-        # assert endpoint_response.json() == expected_feedback_response
 
     def test_invalid_request_less_than_required_values(self) -> None:
         request_data = GameRequestMother()
@@ -98,17 +95,15 @@ class FunctionalTestFeedback(TestCase):
                 GuessColour.ORANGE,
             ]
         )
-        request_endpoint_expected_response = {
-            "feedback": ["BLACK", "BLACK", "BLACK", "BLACK"],
-            "message": "YOU WON!!!!!!!!!",
-        }
 
         endpoint_response = self.make_request(json_data=request_data.build())
 
-        assert endpoint_response.status_code == 200
-        assert endpoint_response.json() == request_endpoint_expected_response
+        json_response = endpoint_response.json()
 
-    # def test_get_feedback_2(self):
-    #     with mock.patch(
-    #         'mastermind.domain.entities.Game'
-    #     ) as response_game:
+        assert endpoint_response.status_code == 200
+
+        self.assertTrue({"feedback", "message"}.issubset(json_response))
+
+        self.assertEqual(self._won_string_message, json_response["message"])
+        self.assertEqual(self._won_feedback_answer, json_response["feedback"])
+
