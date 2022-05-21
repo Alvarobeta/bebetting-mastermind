@@ -1,6 +1,7 @@
 import os
 
-from app.mastermind.infrastructure.infrastructure_exception import InfrastructureException
+from app.mastermind.infrastructure.infrastructure_exception import \
+    InfrastructureException
 
 
 class WrongInputException(InfrastructureException):

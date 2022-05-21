@@ -1,10 +1,10 @@
 import logging
 import os
 from unittest import TestCase
-from app.mastermind.domain.entities.guess_colour import GuessColour
 
 from fastapi.testclient import TestClient
 
+from app.mastermind.domain.entities.guess_colour import GuessColour
 from app.mastermind.infrastructure.config import API_V1_STR
 from app.mastermind.infrastructure.FastAPI.api_v1.endpoints.tests.game_request_mother import \
     GameRequestMother
@@ -17,7 +17,12 @@ class FunctionalTestCreateGame(TestCase):
     def setUp(self):
         self._client: TestClient = TestClient(app)
         self._valid_game = GameRequestMother(
-            code=[GuessColour.RED, GuessColour.GREEN, GuessColour.YELLOW, GuessColour.ORANGE]
+            code=[
+                GuessColour.RED,
+                GuessColour.GREEN,
+                GuessColour.YELLOW,
+                GuessColour.ORANGE,
+            ]
         )
 
     def make_request(self, json_data):

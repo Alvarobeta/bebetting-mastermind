@@ -10,7 +10,7 @@ class RequestValidationErrorHandler:
         error: dict = exc.errors()[0]
 
         error_location: str = ".".join(str(s) for s in error["loc"])
-        error_message: str = error["msg"]
+        error_message: str = error["message"]
 
         return JSONResponse(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,

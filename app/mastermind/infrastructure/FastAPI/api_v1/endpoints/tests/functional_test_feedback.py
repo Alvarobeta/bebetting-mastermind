@@ -1,9 +1,7 @@
-import os
 import logging
+import os
+from unittest import TestCase
 
-from unittest import TestCase, mock
-from app.mastermind.domain.entities.feedback_colour import FeedbackColour
-from app.mastermind.domain.entities.response_feedback import ResponseFeedback
 from fastapi.testclient import TestClient
 
 from app.mastermind.domain.entities.guess_colour import GuessColour
@@ -20,7 +18,12 @@ class FunctionalTestFeedback(TestCase):
         self._client: TestClient = TestClient(app)
         self._game_id: int = 1
         self._valid_request = GameRequestMother(
-            code=[GuessColour.RED, GuessColour.BLUE, GuessColour.GREEN, GuessColour.YELLOW]
+            code=[
+                GuessColour.RED,
+                GuessColour.BLUE,
+                GuessColour.GREEN,
+                GuessColour.YELLOW,
+            ]
         )
 
     def make_request(self, json_data: dict, game_id: int = 1):
@@ -32,16 +35,22 @@ class FunctionalTestFeedback(TestCase):
         )
 
         expected_feedback_response = {
-            'feedback':["BLACK", "", "WHITE", ""],
-            'msg':"Keep trying!"
+            "feedback": ["BLACK", "", "WHITE", ""],
+            "message": "Keep trying!",
         }
 
         # logger.debug(f" -------------- request_data={request_data.build()}")
 
         endpoint_response = self.make_request(json_data=request_data.build())
+        json_response = endpoint_response.json()
 
         assert endpoint_response.status_code == 200
-        assert endpoint_response.json() == expected_feedback_response
+
+        self.assertTrue({"feedback", "message"}.issubset(json_response))
+
+        self.assertEqual("Keep trying!", json_response["message"])
+        self.assertEqual(["BLACK", "", "WHITE", ""], json_response["feedback"])
+        # assert endpoint_response.json() == expected_feedback_response
 
     def test_invalid_request_less_than_required_values(self) -> None:
         request_data = GameRequestMother()
@@ -82,11 +91,16 @@ class FunctionalTestFeedback(TestCase):
 
     def test_win_game(self) -> None:
         request_data = GameRequestMother(
-            code=[GuessColour.RED, GuessColour.GREEN, GuessColour.YELLOW, GuessColour.ORANGE]
+            code=[
+                GuessColour.RED,
+                GuessColour.GREEN,
+                GuessColour.YELLOW,
+                GuessColour.ORANGE,
+            ]
         )
-        request_endpoint_expected_response ={
-            'feedback':["BLACK", "BLACK", "BLACK", "BLACK"],
-            'msg':"YOU WON!!!!!!!!!"
+        request_endpoint_expected_response = {
+            "feedback": ["BLACK", "BLACK", "BLACK", "BLACK"],
+            "message": "YOU WON!!!!!!!!!",
         }
 
         endpoint_response = self.make_request(json_data=request_data.build())
@@ -98,4 +112,3 @@ class FunctionalTestFeedback(TestCase):
     #     with mock.patch(
     #         'mastermind.domain.entities.Game'
     #     ) as response_game:
-        

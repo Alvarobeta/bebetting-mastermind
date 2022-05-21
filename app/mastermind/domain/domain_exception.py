@@ -6,4 +6,4 @@ class DomainException(Exception):
         self.status = status
 
     def to_dict(self):
-        return {"msg": self.message, "type": self.type}
+        return {"message": self.message, "type": self.type}

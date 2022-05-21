@@ -1,3 +1,4 @@
+import logging
 from unittest import TestCase
 
 from app.mastermind.domain.entities.feedback_colour import FeedbackColour
@@ -7,9 +8,8 @@ from app.mastermind.domain.feedback_services.compare_patterns import \
 from app.mastermind.domain.feedback_services.tests.pattern_mother import \
     PatternMother
 
-import logging
-
 logger = logging.getLogger(__name__)
+
 
 class UnitTestComparePatterns(TestCase):
     def setUp(self):
@@ -21,7 +21,7 @@ class UnitTestComparePatterns(TestCase):
                 GuessColour.ORANGE,
                 GuessColour.PINK,
             ]
-        ) 
+        )
 
     def test_compare_one_correct_colour_and_position(self):
         codebreaker_guess_pattern = PatternMother.build(
@@ -44,16 +44,14 @@ class UnitTestComparePatterns(TestCase):
             codebreaker_guess_pattern=codebreaker_guess_pattern,
         )
 
-        logger.debug(
-            f" --------------  compared_patterns={compared_patterns}"
-        )
+        logger.debug(f" --------------  compared_patterns={compared_patterns}")
 
         self.assertEqual(compared_patterns_correct_answer, compared_patterns)
 
-    def test_compare_one_correct_colour_and_position_and_correct_colour_bad_position(self):
-        print(
-            f" --------------  self.codemaker_pattern={self.codemaker_pattern}"
-        )
+    def test_compare_one_correct_colour_and_position_and_correct_colour_bad_position(
+        self,
+    ):
+        print(f" --------------  self.codemaker_pattern={self.codemaker_pattern}")
 
         codebreaker_guess_pattern = PatternMother.build(
             pattern=[
@@ -75,8 +73,6 @@ class UnitTestComparePatterns(TestCase):
             codebreaker_guess_pattern=codebreaker_guess_pattern,
         )
 
-        print(
-            f" --------------  compared_patterns={compared_patterns}"
-        )
+        print(f" --------------  compared_patterns={compared_patterns}")
 
         self.assertEqual(compared_patterns_correct_answer, compared_patterns)
