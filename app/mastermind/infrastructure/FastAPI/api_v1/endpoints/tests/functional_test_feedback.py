@@ -108,3 +108,5 @@ class FunctionalTestFeedback(TestCase):
 
         self.assertEqual(self._won_string_message, json_response["message"])
         self.assertEqual(self._won_feedback_answer, json_response["feedback"])
+
+    #TODO check that the user inputs correct colours
