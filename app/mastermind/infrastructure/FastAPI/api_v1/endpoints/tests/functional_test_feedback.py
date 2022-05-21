@@ -28,16 +28,16 @@ class FunctionalTestFeedback(TestCase):
         )
         self._won_string_message: str = "YOU WON!!!!!!!!!"
         self._won_feedback_answer: List[str] = ["BLACK", "BLACK", "BLACK", "BLACK"]
+        self.wrong_guess_string_message: str = "Keep trying!"
 
     def make_request(self, json_data: dict, game_id: int = 1):
         return self._client.post(f"{API_V1_STR}/{game_id}/feedbacks", json=json_data)
+
 
     def test_get_feedback(self) -> None:
         request_data = GameRequestMother(
             code=[GuessColour.RED, GuessColour.BLUE, GuessColour.GREEN, GuessColour.RED]
         )
-
-        # logger.debug(f" -------------- request_data={request_data.build()}")
 
         endpoint_response = self.make_request(json_data=request_data.build())
         json_response = endpoint_response.json()
@@ -46,8 +46,9 @@ class FunctionalTestFeedback(TestCase):
 
         self.assertTrue({"feedback", "message"}.issubset(json_response))
 
-        self.assertEqual("Keep trying!", json_response["message"])
+        self.assertEqual(self.wrong_guess_string_message, json_response["message"])
         self.assertEqual(["BLACK", "", "WHITE", ""], json_response["feedback"])
+
 
     def test_invalid_request_less_than_required_values(self) -> None:
         request_data = GameRequestMother()
@@ -66,7 +67,7 @@ class FunctionalTestFeedback(TestCase):
             f"You must input {os.environ['DEFAULT_CODE_LENGTH']} valid colours.",
             json_response["error"]["message"],
         )
-        # assert endpoint_response.json() == ["BLACK", "", "WHITE", ""]
+
 
     def test_invalid_request_missing_colour(self) -> None:
         request_data = GameRequestMother()
@@ -85,6 +86,7 @@ class FunctionalTestFeedback(TestCase):
             f"You must input {os.environ['DEFAULT_CODE_LENGTH']} valid colours.",
             json_response["error"]["message"],
         )
+
 
     def test_win_game(self) -> None:
         request_data = GameRequestMother(
@@ -106,4 +108,3 @@ class FunctionalTestFeedback(TestCase):
 
         self.assertEqual(self._won_string_message, json_response["message"])
         self.assertEqual(self._won_feedback_answer, json_response["feedback"])
-
