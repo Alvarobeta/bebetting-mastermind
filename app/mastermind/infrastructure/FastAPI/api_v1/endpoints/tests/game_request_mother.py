@@ -12,7 +12,6 @@ class GameRequestMother:
     @staticmethod
     def _generate_code() -> List[str]:
         code = []
-        # default_code_length = 4
 
         for i in range(int(os.environ["DEFAULT_CODE_LENGTH"])):
             code.append(random.choice(list(GuessColour)))

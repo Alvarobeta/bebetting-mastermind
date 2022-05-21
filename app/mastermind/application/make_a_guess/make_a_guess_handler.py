@@ -36,16 +36,16 @@ class MakeAGuessHandler:
         # update attempts
         game.attempts = 1 if game.attempts == None else game.attempts + 1
 
-        logger.debug(f" -------------- game={game}, game code={game.code}")
+        # logger.debug(f" -------------- game={game}, game code={game.code}")
 
         guessing = SchemaGuessing(code=command.pattern.code, owner_id=game.id)
 
         # add new guessing
         game_guessing = game_db_actions.create_game_guessing(guessing=guessing)
 
-        logger.debug(
-            f" -------------- game_guessing={game_guessing}, game_guessing code={game_guessing.code}"
-        )
+        # logger.debug(
+        #     f" -------------- game_guessing={game_guessing}, game_guessing code={game_guessing.code}"
+        # )
 
         # update game
         game_db_actions.update_game(game=game)

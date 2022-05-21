@@ -8,6 +8,7 @@ from fastapi_sqlalchemy import db
 from app.mastermind.domain.entities.guess_colour import GuessColour
 from app.mastermind.infrastructure.FastAPI.api_v1.wrong_guess_input_exception import \
     WrongInputException
+# from app.mastermind.domain.entities.game import Game
 from models import Game as ModelGame
 from models import Guessing as ModelGuessing
 from schema import Game as SchemaGame
@@ -30,7 +31,7 @@ def create_game(game: SchemaGame):
     if len(game.code) != int(os.environ["DEFAULT_CODE_LENGTH"]) or any(
         GuessColour.EMPTY == c for c in game.code
     ):
-        raise WrongInputException()
+        raise WrongInputException()   
 
     db_game = ModelGame(
         code=game.code,
