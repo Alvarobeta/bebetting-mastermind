@@ -10,7 +10,5 @@ class Guessing:
     code: List[GuessColour]
     owner_id: int
 
-    # MAX_ATTEMPTS: ClassVar[int] = int(os.enviro)
-
     def __str__(self) -> str:
         return f"Guessing(id={self.id}, code={self.code}, owner_id={self.owner_id})"

@@ -33,7 +33,6 @@ class FunctionalTestFeedback(TestCase):
     def make_request(self, json_data: dict, game_id: int = 1):
         return self._client.post(f"{API_V1_STR}/{game_id}/feedbacks", json=json_data)
 
-
     def test_get_feedback(self) -> None:
         request_data = GameRequestMother(
             code=[GuessColour.RED, GuessColour.BLUE, GuessColour.GREEN, GuessColour.RED]
@@ -48,7 +47,6 @@ class FunctionalTestFeedback(TestCase):
 
         self.assertEqual(self.wrong_guess_string_message, json_response["message"])
         self.assertEqual(["BLACK", "", "WHITE", ""], json_response["feedback"])
-
 
     def test_invalid_request_less_than_required_values(self) -> None:
         request_data = GameRequestMother()
@@ -68,7 +66,6 @@ class FunctionalTestFeedback(TestCase):
             json_response["error"]["message"],
         )
 
-
     def test_invalid_request_missing_colour(self) -> None:
         request_data = GameRequestMother()
         request_data._code[0] = GuessColour.EMPTY
@@ -86,7 +83,6 @@ class FunctionalTestFeedback(TestCase):
             f"You must input {os.environ['DEFAULT_CODE_LENGTH']} valid colours.",
             json_response["error"]["message"],
         )
-
 
     def test_win_game(self) -> None:
         request_data = GameRequestMother(
@@ -109,4 +105,4 @@ class FunctionalTestFeedback(TestCase):
         self.assertEqual(self._won_string_message, json_response["message"])
         self.assertEqual(self._won_feedback_answer, json_response["feedback"])
 
-    #TODO check that the user inputs correct colours
+    # TODO check that the user inputs correct colours

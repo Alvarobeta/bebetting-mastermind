@@ -25,10 +25,8 @@ class FunctionalTestCreateGame(TestCase):
             ]
         )
 
-
     def make_request(self, json_data):
         return self._client.post(f"{API_V1_STR}/games", json=json_data)
-
 
     def test_create_game(self) -> None:
         request_data = self._valid_game
@@ -36,7 +34,6 @@ class FunctionalTestCreateGame(TestCase):
         endpoint_response = self.make_request(request_data.build())
 
         assert endpoint_response.status_code == 200
-
 
     def test_invalid_create_with_less_than_required_values(self) -> None:
         request_data = GameRequestMother()

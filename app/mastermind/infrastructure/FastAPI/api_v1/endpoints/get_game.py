@@ -1,16 +1,10 @@
-import logging
-
 from fastapi import APIRouter
-from fastapi_sqlalchemy import db
 
-from models import Game as ModelGame
-
-logger = logging.getLogger(__name__)
+from app.mastermind.application.game_db_actions import game_db_actions
 
 router = APIRouter()
 
 
 @router.get("/game/{game_id}")
 async def get_game(game_id: int):
-    logger.debug(f"--------------------- game_id={game_id}")
-    return db.session.query(ModelGame).filter(ModelGame.id == game_id).first()
+    return game_db_actions.get_game(game_id=game_id)
