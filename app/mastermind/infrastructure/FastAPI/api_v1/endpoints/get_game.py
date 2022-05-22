@@ -15,6 +15,4 @@ logger = logging.getLogger(__name__)
 async def get_game(game_id: str):
     game = GetGameUseCase(gameRepository=GameRepositorySqlAlchemy())
 
-    logger.debug(f"---------- game={game} ----------")
-
     return game(game_id=game_id)

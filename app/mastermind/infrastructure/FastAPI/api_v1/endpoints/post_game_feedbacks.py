@@ -23,11 +23,12 @@ router = APIRouter()
 class Response(BaseModel):
     message: str = ""
     attempts: int = 0
-    feedback: List[FeedbackColour]
+    feedback: List[str]
 
 
 @router.post("/{game_id}/feedbacks", response_model=Response)
 async def get_feedback(game_id: str, guess_attempt_pattern: GuessingPattern):
+    logger.debug('POST/FEEDBACK -----------------------------------')
     handler = MakeAGuessUsecase(gameRepository=GameRepositorySqlAlchemy())
 
     return handler(

@@ -1,5 +1,6 @@
 import logging
 from dataclasses import dataclass
+import uuid
 
 from app.mastermind.application.create_game.create_game_dto import \
     CreateGameDto
@@ -17,6 +18,6 @@ class CreateGameUsecase:
 
     def __call__(self, createGameDto: CreateGameDto) -> Game:
         game = Game(code=createGameDto.code)
-        self.gameRepository.save(game)
+        self.gameRepository.create(game)
 
         return game

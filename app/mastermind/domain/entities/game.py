@@ -1,8 +1,10 @@
 import logging
+import json
 
 import uuid
 from enum import Enum
 from typing import List
+from app.mastermind.application.exceptions.end_game_exception import EndGameException
 
 from app.mastermind.domain.entities.feedback_colour import FeedbackColour
 from app.mastermind.domain.entities.guess_colour import GuessColour
@@ -20,9 +22,9 @@ class GAME_STATUS(str, Enum):
 class Game:
     id: str
     code: List[GuessColour]
-    attempts: List[List[GuessColour]]
+    attempts: str
     status: GAME_STATUS
-    feedbacks: List[List[FeedbackColour]]
+    feedbacks: str
 
     CODE_LENGTH: int = 4
     GAME_LIMIT: int = 8
@@ -30,12 +32,19 @@ class Game:
     # MAX_ATTEMPTS: ClassVar[int] = int(os.environ["DEFAULT_MAX_ATTEMPTS"])
     # CODE_LENGTH: ClassVar[int] = int(os.environ["DEFAULT_CODE_LENGTH"])
 
-    def __init__(self, code) -> None:
-        self.id = str(uuid.uuid4())
+    def __init__(
+        self, 
+        code: List[GuessColour], 
+        id: str = str(uuid.uuid4()),
+        attempts: str = '[]',
+        feedbacks: str = '[]',
+        status: GAME_STATUS = GAME_STATUS.PLAYING
+    ) -> None:
+        self.id = id
         self.code = code
-        self.attempts = []
-        self.feedbacks = []
-        self.status = GAME_STATUS.PLAYING
+        self.attempts = attempts
+        self.feedbacks = feedbacks
+        self.status = status
 
     def __str__(self) -> str:
         return f"Game(id={self.id}, code={self.code}, attempts={self.attempts}, feedbacks={self.feedbacks}, status={self.status})"
@@ -43,28 +52,34 @@ class Game:
     def make_guess(self, guess: List[GuessColour]):
         if (self.status != GAME_STATUS.PLAYING):
             raise WrongGameStatusException(message=F'You cannot play. Status is {self.status}') 
+        
+        logger.debug(f" -------------- make_guess() guess={guess} --------------")
 
-        logger.debug(f" -------------- guess={guess} --------------")
-        self.attempts.append(guess)
-
-        logger.debug(f" -------------- self={self} --------------")
-        logger.debug(f" -------------- attempts={self.attempts} --------------")
-
+        attempts_list: List[List[GuessColour]] = []
+        attempts_list = json.loads(self.attempts)
+        attempts_list.append(guess)
+        self.attempts = json.dumps(attempts_list)
+        
         # compute last feedback
         feedback = self.compute_last_feedback(guess)
 
-        logger.debug(f" -------------- feedback={feedback} --------------")
+        logger.debug(f" -------------- make_guess() feedback={feedback} --------------")
 
-        self.feedbacks.append(feedback)
+        feedbacks_list: List[List[FeedbackColour]] = []
+        feedbacks_list = json.loads(self.feedbacks)
+        feedbacks_list.append(feedback)
+        self.feedbacks = json.dumps(feedbacks_list)
 
-        logger.debug(f" -------------- feedbacks={self.feedbacks} --------------")
+        logger.debug(f" -------------- make_guess() self={self} --------------")
 
-        # # if last feedback is all black TODO
-        # self.status = GAME_STATUS.WON
+        # Win condition
+        if all(f == FeedbackColour.BLACK for f in feedback):
+            self.status = GAME_STATUS.WON
 
-        # # if last feedback
-        # # or is this the last move?
-        # self.status = GAME_STATUS.LOST
+        # Lose condition
+        if len(attempts_list) >= Game.GAME_LIMIT:
+            self.status = GAME_STATUS.LOST
+
 
     def compute_last_feedback(self, guess: List[GuessColour]) -> List[FeedbackColour]:
         feedback: List[FeedbackColour] = []

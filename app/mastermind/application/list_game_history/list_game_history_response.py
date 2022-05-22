@@ -6,4 +6,4 @@ from app.mastermind.domain.entities.guess_colour import GuessColour
 
 @dataclass
 class ListGameHistoryResponse:
-    history: List[GuessColour]
+    history: List[str]

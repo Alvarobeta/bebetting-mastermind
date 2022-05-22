@@ -7,7 +7,7 @@ class Game(BaseModel):
     code: List[str]
     attempts: List[List[str]]
     status: GAME_STATUS
-    feedbacks: List[List[str]]
+    # feedbacks: List[List[str]]
 
     class Config:
         orm_mode = True

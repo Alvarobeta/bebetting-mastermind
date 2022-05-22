@@ -32,9 +32,6 @@ class Response:
 
 @router.post("/games", response_model=Response)
 async def create_game(new_game_code: Code) -> Response:
-
-    logger.debug(f"----- code={new_game_code} ----")
-
     if len(new_game_code.code) != Game.CODE_LENGTH or any(
         GuessColour.EMPTY == c for c in new_game_code.code
     ):
@@ -42,7 +39,5 @@ async def create_game(new_game_code: Code) -> Response:
 
     create_game = CreateGameUsecase(gameRepository=GameRepositorySqlAlchemy())
     game = create_game(CreateGameDto(code=new_game_code.code))
-
-    logger.debug(f"----- game={game.id} ----")
 
     return Response(id=str(game.id))
