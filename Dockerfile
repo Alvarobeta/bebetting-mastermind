@@ -27,9 +27,3 @@ RUN apk del .tmp-build-deps
 WORKDIR "/code"
 
 EXPOSE 8888
-
-# RUN adduser -D postgres
-# USER postgres
-
-# CMD ["uvicorn", "app.mastermind.infrastructure.FastAPI.main:app", "--host", "0.0.0.0",  "--port", "8000", "--reload"]
-# bash -c "alembic upgrade head && uvicorn app.mastermind.infrastructure.FastAPI.main:app --host 0.0.0.0 --port 8888 --reload"

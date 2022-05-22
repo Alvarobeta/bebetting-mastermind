@@ -1,21 +1,29 @@
-import os
 import random
+from enum import Enum
 from typing import List
 
-from app.mastermind.domain.entities.guess_colour import GuessColour
+from app.mastermind.domain.entities.game import Game
+
+
+class ValidGuessColour(str, Enum):
+    RED = "RED"
+    YELLOW = "YELLOW"
+    ORANGE = "ORANGE"
+    BLUE = "BLUE"
+    PINK = "PINK"
+    GREEN = "GREEN"
 
 
 class GameRequestMother:
-    def __init__(self, code: List[GuessColour] = None):
+    def __init__(self, code: List[str] = None):
         self._code = code or self._generate_code()
 
     @staticmethod
     def _generate_code() -> List[str]:
         code = []
-        # default_code_length = 4
 
-        for i in range(int(os.environ["DEFAULT_CODE_LENGTH"])):
-            code.append(random.choice(list(GuessColour)))
+        for i in range(Game.CODE_LENGTH):
+            code.append(random.choice(list(ValidGuessColour)))
 
         return code
 

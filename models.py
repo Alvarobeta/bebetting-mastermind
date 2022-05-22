@@ -1,7 +1,7 @@
-from typing import List
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, ARRAY, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, String, ARRAY, Enum
+
+from app.mastermind.domain.entities.game import GAME_STATUS
 
 
 Base = declarative_base()
@@ -9,31 +9,17 @@ Base = declarative_base()
 class Game(Base):
     __tablename__ = "games"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(String, primary_key=True, index=True)
     code = Column(ARRAY(String))
-    attempts = Column(Integer)
-    
-    guessings = relationship("Guessing", back_populates="owner")
+    attempts = Column(String)
+    status = Column(Enum(GAME_STATUS))
+    feedbacks = Column(String)
 
     def dict(self):
         return {
             "id": self.id,
             "code": self.code,
-            "attempts": self.attempts
-        }
-
-class Guessing(Base):
-    __tablename__ = "guessings"
-
-    id = Column(Integer, primary_key=True, index=True)
-    code = Column(ARRAY(String))
-    owner_id = Column(Integer, ForeignKey("games.id"))
-
-    owner = relationship("Game", back_populates="guessings")
-
-    def dict(self):
-        return {
-            # "id": self.id,
-            "code": self.code,
-            # "owner_id": self.owner_id
+            "attempts": self.attempts,
+            "status": self.status,
+            "feedbacks": self.feedbacks,
         }
