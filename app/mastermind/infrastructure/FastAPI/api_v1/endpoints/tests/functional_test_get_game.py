@@ -1,49 +1,49 @@
-# import json
-# from unittest import TestCase, mock
-# from unittest.mock import create_autospec
+from unittest import TestCase
 
-# from urllib import request
-# from app.mastermind.infrastructure.FastAPI.api_v1.endpoints.tests.game_request_mother import GameRequestMother
+from fastapi.testclient import TestClient
 
-# from fastapi.testclient import TestClient
+from app.mastermind.domain.entities.guess_colour import GuessColour
+from app.mastermind.infrastructure.config import API_V1_STR
+from app.mastermind.infrastructure.FastAPI.api_v1.endpoints.tests.game_request_mother import \
+    GameRequestMother
+from app.mastermind.infrastructure.FastAPI.main import app
 
-# from app.mastermind.infrastructure.config import API_V1_STR
-# from app.mastermind.infrastructure.FastAPI.main import app
-# from models import Game
-# from app.mastermind.infrastructure.FastAPI.api_v1.endpoints.get_game import get_game
 
-# import logging
+class FunctionalTestGetGame(TestCase):
+    def setUp(self):
+        self._client: TestClient = TestClient(app)
+        self._valid_request = GameRequestMother(
+            code=[
+                GuessColour.RED,
+                GuessColour.BLUE,
+                GuessColour.GREEN,
+                GuessColour.YELLOW,
+            ]
+        )
 
-# logger = logging.getLogger(__name__)
+    def create_gamemaker_request(self, json_data):
+        return self._client.post(f"{API_V1_STR}/games", json=json_data)
 
-# # # PATH = 'app.models'
+    def make_request(self, code_id):
+        return self._client.get(f"{API_V1_STR}/game/{code_id}")
 
-# # @mock.patch(Game)
-# class FunctionalTestGetGame(TestCase):
-#     def setUp(self):
-#         self._client: TestClient = TestClient(app)
-#         self.code_id = mock.Mock()
+    def test_get_game(self) -> None:
 
-#     def make_request(self, code_id):
-#         return self._client.get(f"{API_V1_STR}/game/{code_id}")
+        game = self.create_gamemaker_request(self._valid_request.build())
+        game_response = game.json()
 
-#     @mock.patch("app.mastermind.infrastructure.FastAPI.api_v1.endpoints.get_game")
-#     def test_get_game(self, game) -> None:
-#         self.assertFalse(game.called)
+        endpoint_response = self.make_request(code_id=game_response["id"])
+        json_response = endpoint_response.json()
 
-#         # request_data = GameRequestMother()
-#         # mock_game = create_autospec(Game, spec_set=True)
-#         # mock_game = game.objects.get.return_value
+        assert endpoint_response.status_code == 200
 
-#         # game.filter.return_value = mock_game
-
-#         # logger.debug(
-#         #     f" -------------- test_get_game. game={mock_game}"
-#         # )
-
-#         # game.filter.assert_called_once()
-#         endpoint_response = self.make_request(self.code_id)
-#         self.assertTrue(game.called)
-#         # self.assertEqual(200, endpoint_response.status_code)
-
-#         # self.assertEqual(endpoint_response, mock_game.return_value)
+        self.assertTrue({"attempts"}.issubset(json_response))
+        self.assertTrue({"feedbacks"}.issubset(json_response))
+        self.assertTrue({"code"}.issubset(json_response))
+        self.assertTrue({"status"}.issubset(json_response))
+        self.assertTrue({"id"}.issubset(json_response))
+        self.assertEqual(game_response["id"], json_response["id"])
+        self.assertEqual("[]", json_response["attempts"])
+        self.assertEqual("[]", json_response["feedbacks"])
+        self.assertEqual(["RED", "BLUE", "GREEN", "YELLOW"], json_response["code"])
+        self.assertEqual("Playing", json_response["status"])

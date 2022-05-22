@@ -1,14 +1,9 @@
-import logging
 from dataclasses import dataclass
-import uuid
 
 from app.mastermind.application.create_game.create_game_dto import \
     CreateGameDto
-from app.mastermind.domain.game_repository import GameRepository
 from app.mastermind.domain.entities.game import Game
-# from models import Game
-
-logger = logging.getLogger(__name__)
+from app.mastermind.domain.game_repository import GameRepository
 
 
 @dataclass

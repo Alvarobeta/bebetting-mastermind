@@ -1,4 +1,3 @@
-import logging
 from dataclasses import dataclass
 from typing import List
 
@@ -15,8 +14,6 @@ from app.mastermind.domain.entities.game import Game
 from app.mastermind.domain.entities.guess_colour import GuessColour
 from app.mastermind.infrastructure.sql_alchemy.game_repository_sql_alchemy import \
     GameRepositorySqlAlchemy
-
-logger = logging.getLogger(__name__)
 
 router = APIRouter()
 

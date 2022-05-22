@@ -1,11 +1,7 @@
-from multiprocessing.dummy import Array
-from typing import List
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, ARRAY, Enum, JSON
-from sqlalchemy.dialects import postgresql
+from sqlalchemy import Column, String, ARRAY, Enum
 
 from app.mastermind.domain.entities.game import GAME_STATUS
-from app.mastermind.domain.entities.guess_colour import GuessColour
 
 
 Base = declarative_base()

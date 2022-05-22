@@ -5,7 +5,7 @@ PROJECT_PATH = os.path.abspath(os.curdir)
 PROJECT_VERSION = "0.0.1"
 PROJECT_NAME = "Mastermind"
 PROJECT_DESCRIPTION = """
-<h1>🐍</h1> 
+<h1>🐍 ⚪ ⚫ 🔴 🟠 🟡 🟢 🔵 🟣</h1> 
 <h3>Master mind BeBetting hiring</h3>
 """
 PROJECT_CONTACT_NAME = "Alvaro Martinez"

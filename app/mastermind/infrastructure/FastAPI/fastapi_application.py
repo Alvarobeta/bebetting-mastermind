@@ -2,8 +2,6 @@ from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.gzip import GZipMiddleware
 
-# from app.mastermind.application.application_exception import \
-#     ApplicationException
 from app.mastermind.domain.domain_exception import DomainException
 from app.mastermind.infrastructure import config
 from app.mastermind.infrastructure.FastAPI.api_v1.api import api_router
@@ -37,8 +35,6 @@ class FastAPIApplication(FastAPI):
         self.add_exception_handler(
             RequestValidationError, RequestValidationErrorHandler()
         )
-
-        # self.add_exception_handler(InfrastructureException, CustomInfrastructureExceptionHandler())
 
     def _add_middlewares(self):
         self.add_middleware(GZipMiddleware)

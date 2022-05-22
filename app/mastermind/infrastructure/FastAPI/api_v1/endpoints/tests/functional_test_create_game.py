@@ -1,16 +1,13 @@
-import logging
-import os
 from unittest import TestCase
 
 from fastapi.testclient import TestClient
 
+from app.mastermind.domain.entities.game import Game
 from app.mastermind.domain.entities.guess_colour import GuessColour
 from app.mastermind.infrastructure.config import API_V1_STR
 from app.mastermind.infrastructure.FastAPI.api_v1.endpoints.tests.game_request_mother import \
     GameRequestMother
 from app.mastermind.infrastructure.FastAPI.main import app
-
-logger = logging.getLogger(__name__)
 
 
 class FunctionalTestCreateGame(TestCase):
@@ -47,8 +44,26 @@ class FunctionalTestCreateGame(TestCase):
 
         self.assertTrue({"error"}.issubset(json_response))
         self.assertTrue({"type", "message"}.issubset(json_response["error"]))
-        self.assertEqual("wrong_input_number", json_response["error"]["type"])
+        self.assertEqual("WrongInputException", json_response["error"]["type"])
         self.assertEqual(
-            f"You must input {os.environ['DEFAULT_CODE_LENGTH']} valid colours.",
+            f"You must input {Game.CODE_LENGTH} colours.",
+            json_response["error"]["message"],
+        )
+
+    def test_invalid_create_with_empty_type_value(self) -> None:
+        request_data = GameRequestMother()
+        request_data._code[0] = GuessColour.EMPTY
+
+        endpoint_response = self.make_request(request_data.build())
+
+        self.assertEqual(400, endpoint_response.status_code)
+
+        json_response = endpoint_response.json()
+
+        self.assertTrue({"error"}.issubset(json_response))
+        self.assertTrue({"type", "message"}.issubset(json_response["error"]))
+        self.assertEqual("WrongInputException", json_response["error"]["type"])
+        self.assertEqual(
+            f"You must input {Game.CODE_LENGTH} colours.",
             json_response["error"]["message"],
         )
