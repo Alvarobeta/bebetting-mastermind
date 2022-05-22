@@ -4,7 +4,7 @@ from typing import List
 from app.mastermind.domain.entities.feedback_colour import FeedbackColour
 from app.mastermind.domain.entities.guess_colour import GuessColour
 from app.mastermind.domain.entities.guessing_pattern import GuessingPattern
-from app.mastermind.domain.feedback_services.compare_patterns import \
+from app.mastermind.domain.feedback_services_TBD.compare_patterns import \
     ComparePatterns
 
 logger = logging.getLogger(__name__)

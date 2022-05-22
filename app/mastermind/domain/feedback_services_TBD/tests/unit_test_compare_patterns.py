@@ -3,9 +3,9 @@ from unittest import TestCase
 
 from app.mastermind.domain.entities.feedback_colour import FeedbackColour
 from app.mastermind.domain.entities.guess_colour import GuessColour
-from app.mastermind.domain.feedback_services.compare_patterns import \
+from app.mastermind.domain.feedback_services_TBD.compare_patterns import \
     ComparePatterns
-from app.mastermind.domain.feedback_services.tests.pattern_mother import \
+from app.mastermind.domain.feedback_services_TBD.tests.pattern_mother import \
     PatternMother
 
 logger = logging.getLogger(__name__)

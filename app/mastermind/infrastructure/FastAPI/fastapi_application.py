@@ -9,14 +9,10 @@ from app.mastermind.infrastructure import config
 from app.mastermind.infrastructure.FastAPI.api_v1.api import api_router
 from app.mastermind.infrastructure.FastAPI.exception_handlers.custom_domain_exception_handler import \
     CustomDomainExceptionHandler
-from app.mastermind.infrastructure.FastAPI.exception_handlers.custom_infrastructure_exception_handler import \
-    CustomInfrastructureExceptionHandler
 from app.mastermind.infrastructure.FastAPI.exception_handlers.request_validation_error_handler import \
     RequestValidationErrorHandler
 from app.mastermind.infrastructure.FastAPI.middlewares.custom_server_http_response_header_middleware import \
     CustomServerHttpResponseHeaderMiddleware
-from app.mastermind.infrastructure.infrastructure_exception import \
-    InfrastructureException
 
 
 class FastAPIApplication(FastAPI):
@@ -41,9 +37,8 @@ class FastAPIApplication(FastAPI):
         self.add_exception_handler(
             RequestValidationError, RequestValidationErrorHandler()
         )
-        self.add_exception_handler(
-            InfrastructureException, CustomInfrastructureExceptionHandler()
-        )
+
+        # self.add_exception_handler(InfrastructureException, CustomInfrastructureExceptionHandler())
 
     def _add_middlewares(self):
         self.add_middleware(GZipMiddleware)
