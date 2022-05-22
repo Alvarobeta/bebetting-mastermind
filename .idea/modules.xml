@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Python-api-skeleton.iml" filepath="$PROJECT_DIR$/.idea/Python-api-skeleton.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Mastermind-BeBetting.iml" filepath="$PROJECT_DIR$/.idea/Mastermind-BeBetting.iml" />
     </modules>
   </component>
 </project>
