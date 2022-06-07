@@ -24,7 +24,6 @@ class FunctionalTestFeedback(TestCase):
         self._game = self.create_gamemaker_request(self._valid_request.build())
         self._game_response = self._game.json()
 
-
         self._won_string_message: str = "YOU WON!!!!!!!!!"
         self._won_feedback_answer: List[str] = ["BLACK", "BLACK", "BLACK", "BLACK"]
         self.wrong_guess_string_message: str = "Keep trying!"

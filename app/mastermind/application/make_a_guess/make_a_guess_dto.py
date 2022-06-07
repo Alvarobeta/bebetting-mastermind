@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from app.mastermind.application.exceptions.wrong_input_exception import \
     WrongInputException
 from app.mastermind.domain.entities.game import Game
-from app.mastermind.domain.entities.guess_colour import GuessColour
 from app.mastermind.domain.entities.guessing_pattern import GuessingPattern
 
 
@@ -19,5 +18,5 @@ class MakeAGuessDto:
         if len(pattern.code) != Game.CODE_LENGTH:
             raise WrongInputException(message="Invalid guessing length")
 
-        if any(GuessColour.EMPTY == c for c in pattern.code):
+        if any("" == c for c in pattern.code):
             raise WrongInputException(message="Empty colour")

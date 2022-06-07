@@ -8,7 +8,7 @@ class GuessColour(str, Enum):
     BLUE = "BLUE"
     PINK = "PINK"
     GREEN = "GREEN"
-    EMPTY = ""
+    # EMPTY = ""
 
     def __str__(self) -> str:
         return self.value
