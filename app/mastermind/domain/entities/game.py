@@ -76,8 +76,6 @@ class Game:
     def compute_last_feedback(self, guess: List[GuessColour]) -> List[FeedbackColour]:
         feedback: List[FeedbackColour] = []
 
-        logger.debug(f" --------------  guess={guess}")
-
         for index, colour in enumerate(guess):
             if any(colour == c for c in self.code):
                 if guess[index] == self.code[index]:
