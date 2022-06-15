@@ -7,7 +7,7 @@
 
 ## How to run the app
 
-To make the first migration necessari for the app to work execute: 
+To make the first migration necessary for the app to work execute: 
 
 ```bash
 docker-compose run web alembic revision --autogenerate -m "First migration"
@@ -19,6 +19,7 @@ and then:
 ```bash
 make up
 ```
+
 This command will expose the app under `http://localhost:8888/`
 
 In the URL `http://localhost:8888/docs` you have a Swagger UI with the API documentation. There you'll have a link with the OpenAPI in json format.
@@ -27,21 +28,18 @@ In the URL `http://localhost:8888/redoc` you have a [ReDoc](https://github.com/R
 
 And of course, under `http://localhost:8888/` it's the required endpoint 😀.
 
-You can find the postgres pagadmin at `http://localhost:5050/`. user=pgadmin4@pgadmin.org, password=admin
+You can find the postgres pagadmin at `http://localhost:5050/`. (user=pgadmin4@pgadmin.org, password=admin)
 
-You probably will ned to create a .env on the root with the following info:
+You will probably need to create a .env on the root with the following info:
+
 DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432
 
+DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432
 DB_USER=postgres
-
 DB_PASSWORD=postgres
-
-DB_NAME=bebetting_test_db
-
+DB_NAME=test_db
 PGADMIN_EMAIL=pgadmin4@pgadmin.org
-
 PGADMIN_PASSWORD=admin
-
 
 ## How run the tests
 

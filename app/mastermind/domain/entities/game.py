@@ -1,6 +1,7 @@
 import json
+import logging
+import random
 import uuid
-
 from enum import Enum
 from typing import List
 
@@ -8,6 +9,8 @@ from app.mastermind.application.exceptions.wrong_game_status_exception import \
     WrongGameStatusException
 from app.mastermind.domain.entities.feedback_colour import FeedbackColour
 from app.mastermind.domain.entities.guess_colour import GuessColour
+
+logger = logging.getLogger(__name__)
 
 
 class GAME_STATUS(str, Enum):
@@ -28,14 +31,14 @@ class Game:
 
     def __init__(
         self,
-        code: List[GuessColour],
+        code: List[GuessColour] = [],
         id: str = "",
         attempts: str = "[]",
         feedbacks: str = "[]",
         status: GAME_STATUS = GAME_STATUS.PLAYING,
     ) -> None:
         self.id = id or self._generate_uuid_str()
-        self.code = code
+        self.code = code or self._create_new_game_code()
         self.attempts = attempts
         self.feedbacks = feedbacks
         self.status = status
@@ -81,14 +84,18 @@ class Game:
                 else:
                     feedback.append(FeedbackColour.WHITE)
 
-                self.code[
-                    index
-                ] = GuessColour.EMPTY  # avoid erroneous comparisons on repeated colors
-
             else:
                 feedback.append(FeedbackColour.EMPTY)
 
         return feedback
+
+    def _create_new_game_code(self) -> List[GuessColour]:
+        code = []
+
+        for i in range(Game.CODE_LENGTH):
+            code.append(random.choice(list(GuessColour)))
+
+        return code
 
     def _generate_uuid_str(self) -> str:
         return str(uuid.uuid4())

@@ -11,7 +11,6 @@ from app.mastermind.domain.entities.guessing_pattern import GuessingPattern
 from app.mastermind.infrastructure.sql_alchemy.game_repository_sql_alchemy import \
     GameRepositorySqlAlchemy
 
-
 router = APIRouter()
 
 
@@ -21,7 +20,7 @@ class Response(BaseModel):
     feedback: List[str]
 
 
-@router.post("/{game_id}/feedbacks", response_model=Response)
+@router.post("/api/games/{game_id}/feedbacks", response_model=Response)
 async def get_feedback(game_id: str, guess_attempt_pattern: GuessingPattern):
     handler = MakeAGuessUsecase(gameRepository=GameRepositorySqlAlchemy())
 

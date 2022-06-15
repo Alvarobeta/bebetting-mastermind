@@ -15,7 +15,7 @@ class Response(BaseModel):
     history: List[List[str]]
 
 
-@router.get("/game/{game_id}/historical", response_model=Response)
+@router.get("/api/games/{game_id}/historical", response_model=Response)
 async def get_historical(game_id: str):
     list_game_history = ListGameHistoryUseCase(
         gameRepository=GameRepositorySqlAlchemy()
