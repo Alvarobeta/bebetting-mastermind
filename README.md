@@ -34,12 +34,16 @@ You will probably need to create a .env on the root with the following info:
 
 DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432
 
-DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432
 DB_USER=postgres
+
 DB_PASSWORD=postgres
+
 DB_NAME=test_db
+
 PGADMIN_EMAIL=pgadmin4@pgadmin.org
+
 PGADMIN_PASSWORD=admin
+
 
 ## How run the tests
 
